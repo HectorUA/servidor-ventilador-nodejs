@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta  name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InSV</title>
+    <link rel="stylesheet" href="/css/home.css">
+</head>
+<body >
+    <header>
+        <div class="Escudos">
+            <div class="EscudoUni">
+                <a href="http://www.uaslp.mx">
+                    <img src="/images/Emblema-UNI-horizontal.png" alt="Universidad Uatónoma de SLP">
+                </a>
+            </div>
+            <div class="lineaSeparacion"> </div>
+            <div class="EscudoIng">
+                <a href="http://www.ingenieria.uaslp.mx">
+                    <img src="../images/Emblema-FI-simpl-horizontal.png" alt="Facultad de Ingeniería de la UASLP">
+                </a>
+            </div>
+            <div class="lineaSeparacion"> </div>
+            <div class="FotoFacu">
+                <a href="http://www.ingenieria.uaslp.mx">
+                    <img src="/images/FotoFacu.jpg" alt="Facultad de Ingeniería de la UASLP">
+                </a>
+            </div>   
+        </div>
+       
+    </header>
+    <main>
+       
+        <div class="BotonTx">
+            <!---<button class="btn" onclick="exportTableToExcel('tblData', 'sensores-Radsol')">Guardar</button>-->
+            <button class="btnC"  onclick="location.href='html/Cliente.html'">Cliente</button>
+           <a href="html/server.html"><button class="btnS"  oneclick="Activa()">Servidor</button></a> 
+        </div>
+    </main>
+    <footer>
+        
+        <div class="UASLP">
+            <h2>UASLP</h2>
+            <h3>Univerisdad Autónoma de San Luis Potosí</h3>
+            <h4>Facultad de Ingeniería</h4>
+            <h4>Área de Ciencias de la Computación</h4>
+           
+            <p>Proyecto:     
+                Sistema de medición de Temperatura y ventilador.</p>
+        </div>
+        <div class="Desarrolladores">
+            <p>Desarrolladores:</p>
+            <p>A232872@alumnos.uaslp.mx</p>
+            
+        </div>
+    </footer>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="../index.js"></script>
+
+</body>
+</html>

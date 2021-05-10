@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta  name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cliente</title>
+    <link rel="stylesheet" href="../css/home.css">
+</head>
+<body >
+    <header>
+        <div class="Escudos">
+            <div class="EscudoUni">
+                <a href="http://www.uaslp.mx">
+                    <img src="../images/Emblema-UNI-horizontal.png" alt="Universidad Uatónoma de SLP">
+                </a>
+            </div>
+            <div class="lineaSeparacion"> </div>
+            <div class="EscudoIng">
+                <a href="http://www.ingenieria.uaslp.mx">
+                    <img src="../images/Emblema-FI-simpl-horizontal.png" alt="Facultad de Ingeniería de la UASLP">
+                </a>
+            </div>
+            <div class="lineaSeparacion"> </div>
+            <div class="FotoFacu">
+                <a href="http://www.ingenieria.uaslp.mx">
+                    <img src="../images/FotoFacu.jpg" alt="Facultad de Ingeniería de la UASLP">
+                </a>
+            </div>   
+        </div>
+      
+    </header>
+    <main>
+        <table id="tblData">
+            <caption>Cliente</caption>
+            <thead>
+                <tr>
+                    <th>Sensor</th>
+                    
+                    <th>Hora</th>
+                   
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="Sensor" id="temperature">19.44°C</td>
+                  
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="4">Mediciones del Sistemas</td>
+                </tr>
+            </tfoot>
+        </table>
+        <div class="BotonTx">
+            <!---<button class="btn" onclick="exportTableToExcel('tblData', 'sensores-Radsol')">Guardar</button>-->
+            <button class="btn" onclick="javascript: history.go(-1)">Salir</button>
+            
+        </div>
+    </main>
+    <footer>
+        <div class="Vacio"></div>
+        <div class="UASLP">
+            <h2>UASLP</h2>
+            <h3>Univerisdad Autónoma de San Luis Potosí</h3>
+            <h4>Facultad de Ingeniería</h4>
+            <h4>Área de Ciencias de la Computación</h4>
+           
+            <p>Proyecto:     
+                Sistema de medición de Temperatura y ventilador.</p>
+        </div>
+        <div class="Desarrolladores">
+            <p>Desarrolladores:</p>
+            <p>A232872@alumnos.uaslp.mx</p>
+            
+        </div>
+    </footer>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="../js/cliente.js"></script>
+
+</body>
+</html>
