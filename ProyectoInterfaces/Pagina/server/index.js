@@ -5,7 +5,7 @@ const server = http.createServer(app);
 const { Server } = require("socket.io");
 const io = new Server(server);
 
-const serial = require('./public/js/serial');
+const serial = require('./public/js/serial');  //se agrega la incializacion previa que se hizo en el archivo serial.js
 const conexion = require('./public/js/db');
 
 const lectura_Sen = 'SELECT * FROM `sensor` WHERE `id_sensor` = 1';
@@ -36,14 +36,14 @@ server.listen(3000, () => {
 
 
 
-function writeport()
+function writeport()  //funcion que escribe valores en el puerto serial
 {
-  serial.write(sendON, function (err) {
-    if (err) {
+  serial.write(sendON, function (err) {  //se escribe el valor sendON en el puerto
+    if (err) {   //se recibe si hay algun error
         return console.log('Error on write: ', err.message);
     }
-    console.log('send: ' + sendON);
-    io.emit('temp', sendON.toString());
+    console.log('send: ' + sendON);  
+    io.emit('temp', sendON.toString());  //se envia el valor al socket para mostrarse en la pagina 
 
 });
 
@@ -94,26 +94,27 @@ conexion.query('SELECT * FROM `ventilador` WHERE `id_ventilador` = 1', function(
 
 }
 
-
+// Se abre el puerto para enviar datos
 serial.on('open', function () {
-  writeport();
+  writeport();  //se llama ala funcion writeport();
 });
 
-  
-setInterval(function () {
+  //se activa una interrupcion cada cierto tiempo para llamara al a funcion write port
+setInterval(function () {  
   writeport();
-}, 5000);
+}, 3000);
 
+//Se verifica si el puerto esta prendido y recibe datos 
 serial.on('data', function(data){
-  temp = parseInt(data,10);
+  temp = parseInt(data,10); //almacena el valor y lo convierte en entero ya que se se envian strings en el puerto
   
          // Recibir cadena
-         if(data!=null)
+         if(data!=null)  //si se recibe valores del puerto serial
          {
           console.log('recv: ' + data);
-          lectura_Servidor = data;
-          if(data>20){
+           
            // sube_Sen(escritura_SenAct);
+           //actualiza los valores en la base de datos
            conexion.query('UPDATE `sensor` SET `Lectura` = '+temp+',  `Activo` = '+1+'  WHERE `sensor`.`id_sensor` = 1', function(error, results, fields){
             if(error)
             {throw error;}
@@ -122,19 +123,10 @@ serial.on('data', function(data){
             }
         });
         
-           }
-          else
-           {
-            conexion.query('UPDATE `sensor` SET `Lectura` = '+temp+', `Activo` = '+0+'  WHERE `sensor`.`id_sensor` = 1', function(error, results, fields){
-              if(error)
-              {throw error;}
-              else{
-                  console.log("Alta exitosa");
-              }
-          });
-          }
+           
+         
           
-           // enviar cadena
+           // lee la lectura guardada en la base de datos 
            conexion.query('SELECT * FROM `sensor` WHERE `id_sensor` = 1', function(error, results, fields){
             if(error)
             {throw error;}
@@ -146,11 +138,13 @@ serial.on('data', function(data){
             });
         });
          // enviar cadena
-         io.emit('temp', data.toString());
+         io.emit('temp', data.toString()); // envia la lectura para mostrarla en la pagina web
          }
 
-         else
+         else  // si no se reciben datos del puerto, entonces se escriben
 {
+
+  //se lee en la base de datos la temperatura del sensor
   conexion.query('SELECT * FROM `sensor` WHERE `id_sensor` = 1', function(error, results, fields){
     if(error)
     {throw error;}
@@ -162,8 +156,8 @@ serial.on('data', function(data){
     });
 });
 
-  if(lectura_Servidor>20)
-  {
+  if(lectura_Servidor>20)  // si la temperatura es mayor a 20 entonces se escribe en el base de datos que se prende el ventilador
+  {  
     conexion.query('UPDATE `ventilador` SET `Activo` = '+1+' WHERE `ventilador`.`id_ventilador` = 1;', function(error, results, fields){
       if(error)
       {throw error;}
@@ -172,7 +166,7 @@ serial.on('data', function(data){
       }
   });
   }
-  else
+  else   // si no es mayor a 20º el ventilador no se enciende y se escribe que esta apagado
   {
     conexion.query('UPDATE `ventilador` SET `Activo` = '+0+' WHERE `ventilador`.`id_ventilador` = 1;', function(error, results, fields){
       if(error)
@@ -182,13 +176,14 @@ serial.on('data', function(data){
       }
   });  }
 
+  // se hace la lectura del ventilador para ver la indicacion
   conexion.query('SELECT * FROM `ventilador` WHERE `id_ventilador` = 1', function(error, results, fields){
     if(error)
     {throw error;}
     results.forEach(result=>{
         if(result.id_sensor==1){
       console.log(result.Activo);
-      sendON = result.Activo.toString();
+      sendON = result.Activo.toString();  // se almacena la accion a realizar y se almacena en sendON
         }
     });
 });

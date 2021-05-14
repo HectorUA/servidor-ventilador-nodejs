@@ -1,6 +1,6 @@
 
-const SerialPort = require('serialport');
-const port = new SerialPort('COM5');
+const SerialPort = require('serialport');  //se incializa la libreria que se utilizara
+const port = new SerialPort('COM5'); //se establece el puerto donde esta conectado el arduino
 
 
   
@@ -20,4 +20,4 @@ const port = new SerialPort('COM5');
   
   });*/
 
-  module.exports=port;
+  module.exports=port;   //se habilita la variable para poder utilizarla desde otro archivo

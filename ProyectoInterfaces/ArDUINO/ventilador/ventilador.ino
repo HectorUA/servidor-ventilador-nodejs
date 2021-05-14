@@ -6,6 +6,7 @@ const int pinIN3 = 9;
 const int pinIN4 = 10;
 const int pinENB = 11;
 int DatRecibido =0;
+long temp =random(30);
 
 const int waitTime = 2000;  //espera entre fases
 const int speed = 200;    //velocidad de giro
@@ -32,13 +33,13 @@ void loop()
 {
   moveBackward(pinMotorA, 1000); // FUNCION ADELANTE
   //Serial.println("Prendido");
-   delay(3000);
+   delay(4000);
 
 }
 else
 {
   fullStop(pinMotorA);
-delay(3000);
+delay(4000);
 }
 Serial.println(temp);
    
