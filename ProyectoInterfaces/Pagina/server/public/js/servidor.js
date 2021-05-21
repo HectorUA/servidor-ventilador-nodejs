@@ -1,7 +1,13 @@
 const socket = io();
-const temperatureDisplay = document.getElementById('temperature');
+const activDisplay = document.getElementById('activ_vent');
+const idDisplay = document.getElementById('id_vent');
 
-socket.on('temp', function (data) {
-  console.log(data);
-  temperature.innerHTML     = `${data}°C`;
+
+socket.on('sockData', function (data) {
+  data.map(function(elem, index){
+
+    console.log("pagina:serv:"+elem.lectura);
+    id_vent.innerHTML = `${elem.vent_id}`;
+    activ_vent.innerHTML     = `${elem.send}`;
+  })
 });

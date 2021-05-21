@@ -5,6 +5,15 @@ const server = http.createServer(app);
 const { Server } = require("socket.io");
 const io = new Server(server);
 
+var sockData = [{
+  vent_id:"0",
+  send:"0",
+  sens_id:"0",
+  lectura:"0"
+}];
+
+
+
 const serial = require('./public/js/serial');  //se agrega la incializacion previa que se hizo en el archivo serial.js
 const conexion = require('./public/js/db');
 
@@ -22,7 +31,7 @@ var lectura_Servidor='0';
 
 var temp = 0 ;
 
-app.use(express.static(__dirname+'/public'));
+app.use(express.static(__dirname+'/public')); 
 
 
 
@@ -43,7 +52,9 @@ function writeport()  //funcion que escribe valores en el puerto serial
         return console.log('Error on write: ', err.message);
     }
     console.log('send: ' + sendON);  
-    io.emit('temp', sendON.toString());  //se envia el valor al socket para mostrarse en la pagina 
+    sockData[0].send=sendON;
+
+    io.emit('sockData', sockData);  //se envia el valor al socket para mostrarse en la pagina 
 
 });
 
@@ -56,6 +67,8 @@ conexion.query('SELECT * FROM `sensor` WHERE `id_sensor` = 1', function(error, r
       if(result.id_sensor==1){
     console.log(result.Lectura);
     lectura_Servidor = result.Lectura.toString();
+    sockData[0].sens_id=result.id_sensor.toString();
+
       }
   });
 });
@@ -88,6 +101,8 @@ conexion.query('SELECT * FROM `ventilador` WHERE `id_ventilador` = 1', function(
       if(result.id_ventilador==1){
     console.log(result.Activo);
     sendON = result.Activo.toString();
+    sockData[0].vent_id=result.id_ventilador.toString();
+
       }
   });
 });
@@ -134,11 +149,15 @@ serial.on('data', function(data){
                 if(result.id_sensor==1){
               console.log(result.Lectura);
               lectura_Servidor = result.Lectura.toString();
+              sockData[0].sens_id=result.id_sensor.toString();
+
                 }
             });
         });
          // enviar cadena
-         io.emit('temp', data.toString()); // envia la lectura para mostrarla en la pagina web
+         sockData[0].lectura=lectura_Servidor;
+
+         io.emit('sockData', sockData); // envia la lectura para mostrarla en la pagina web
          }
 
          else  // si no se reciben datos del puerto, entonces se escriben
@@ -152,6 +171,8 @@ serial.on('data', function(data){
         if(result.id_sensor==1){
       console.log(result.Lectura);
       lectura_Servidor = result.Lectura.toString();
+      sockData[0].sens_id=result.id_sensor.toString();
+
         }
     });
 });
@@ -184,6 +205,8 @@ serial.on('data', function(data){
         if(result.id_sensor==1){
       console.log(result.Activo);
       sendON = result.Activo.toString();  // se almacena la accion a realizar y se almacena en sendON
+      sockData[0].vent_id=result.id_ventilador.toString();
+
         }
     });
 });
