@@ -4,10 +4,10 @@ const mysql = require('mysql');
 
 
 const conexion= mysql.createConnection({
-    host: 'localhost',
+    host: 'database-sens.cfntfgj6z0el.sa-east-1.rds.amazonaws.com',
     database: 'sensores',
     user: 'root',
-    password: '',
+    password: 'root1234',
   });
   
   conexion.connect(function(error){

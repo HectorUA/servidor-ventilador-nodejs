@@ -1,9 +1,6 @@
 
 const SerialPort = require('serialport');  //se incializa la libreria que se utilizara
 const port = new SerialPort('COM5'); //se establece el puerto donde esta conectado el arduino
-
-
-  
   // open errors will be emitted as an error event
   port.on('error', function (err) {
     console.log('Error: ', err.message);

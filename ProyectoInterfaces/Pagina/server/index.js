@@ -9,8 +9,11 @@ var sockData = [{
   vent_id:"0",
   send:"0",
   sens_id:"0",
-  lectura:"0"
+  lectura:"0",
+  regreso:"0"
 }];
+
+
 
 
 
