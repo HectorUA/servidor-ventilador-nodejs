@@ -6,7 +6,7 @@ const int pinIN3 = 9;
 const int pinIN4 = 10;
 const int pinENB = 11;
 int DatRecibido =0;
-long temp =30;
+long temp =random(15,30);
 
 const int waitTime = 2000;  //espera entre fases
 const int speed = 200;    //velocidad de giro
@@ -41,7 +41,8 @@ else
   fullStop(pinMotorA);
 delay(2000);
 }
-   
+temp =random(50);
+   Serial.println(temp);
   
 }
 

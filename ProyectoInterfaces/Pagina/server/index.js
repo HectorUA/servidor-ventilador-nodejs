@@ -120,8 +120,12 @@ serial.on('open', function () {
   //se activa una interrupcion cada cierto tiempo para llamara al a funcion write port
 setInterval(function () {  
   writeport();
+  leer();
 }, 3000);
 
+function leer()
+{
+  
 //Se verifica si el puerto esta prendido y recibe datos 
 serial.on('data', function(data){
   temp = parseInt(data,10); //almacena el valor y lo convierte en entero ya que se se envian strings en el puerto
@@ -179,9 +183,6 @@ serial.on('data', function(data){
 }
 
 });
-function leer()
-{
-
 }
 /*
 serial.on('data', function (data) {
