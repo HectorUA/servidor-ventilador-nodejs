@@ -8,6 +8,6 @@ socket.on('sockData', function (data) {
 
     console.log("pagina:serv:"+elem.lectura);
     id_sens.innerHTML = `${elem.sens_id}`;
-    temperature.innerHTML     = `${elem.lectura}°C`;
+    temperature.innerHTML   = `${elem.lectura}°C`;
   })
 });
